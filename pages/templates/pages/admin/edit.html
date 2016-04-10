@@ -1,0 +1,21 @@
+{% extends 'kury/admin_layout.html' %}
+
+{% block content %}
+
+<br />
+<h1>Edit page <em>{{ page.title }}</em></h1>
+<hr />
+
+<div class="row">
+  <div class="col-xs-12">
+    <form class="pull-right" method="POST" action="{% url 'pages:admin_delete' pk=page.pk %}">
+      {% csrf_token %}
+      <input class="btn btn-xs btn-danger" type="submit" value="Delete" />
+    </form>
+  </div>
+</div>
+
+<form method="POST">
+  {% include 'pages/admin/form.html' with form=form %}
+</form>
+{% endblock %}

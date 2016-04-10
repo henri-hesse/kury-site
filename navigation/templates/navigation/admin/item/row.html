@@ -1,0 +1,29 @@
+{% load navigation_extras %}
+
+<tr>
+  <td>{{ '&nbsp;&nbsp;'|repeat:item.deepness|safe }} {{ item.title }}</td>
+  <td>
+    {% if not item.link_type %}
+      <em>No link</em>
+    {% endif %}
+
+    {% if item.link_type == 'page' %}
+      <a href="{% url 'pages:admin_edit' pk=item.page.pk %}">{{ item.page.title }}</a>
+    {% endif %}
+
+    {% if item.link_type == 'tailored_page' %}
+      {{ item.tailored_page_label }}
+    {% endif %}
+
+    {% if item.link_type == 'url' %}
+      <a href="{{ item.url }}">{{ item.url }}</a>
+    {% endif %}
+  </td>
+  <td>
+    <a href="{% url 'navigation:admin_edit' pk=item.pk %}">Edit</a>
+  </td>
+</tr>
+
+{% for child in item.children.all %}
+  {% include 'navigation/admin/item/row.html' with item=child %}
+{% endfor %}

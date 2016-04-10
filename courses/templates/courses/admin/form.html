@@ -1,0 +1,42 @@
+{% csrf_token %}
+
+<div class="row">
+	<div class="col-xs-12">
+	  {% include 'kury/form/input_block.html' with field=form.title %}
+	  {% include 'kury/form/input_block.html' with field=form.description %}
+	  {% include 'kury/form/input_block.html' with field=form.image %}
+	</div>
+</div>
+
+<br />
+<h3>Course events</h3>
+<hr />
+
+{{ event_formset.management_form }}
+{% for event_form in event_formset %}
+	<h4>Event #{{ forloop.counter }}</h4>
+	<div class="row">
+		{{ event_form.id }}
+		<div class="col-xs-4">
+      {% include 'kury/form/input_block.html' with field=event_form.datetime %}
+    </div>
+    <div class="col-xs-4">
+      {% include 'kury/form/input_block.html' with field=event_form.store_link %}
+		</div>
+		<div class="col-xs-4">
+		  <div class="checkbox">
+		  	<br />
+		    <label>
+		      {{ event_form.DELETE }} Delete?
+		    </label>
+		  </div>
+		</div>
+	</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-xs-12">
+	  <br />
+	  <input class="btn btn-primary" type="submit" value="Save" />
+	</div>
+</div>

@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kiipeilyurheilijat</title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+      {% endif %}
+
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+      {% endif %}
+
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+        <div class="alert alert-info" role="alert">{{ message }}</div>
+      {% endif %}
+
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}
+        <div class="alert alert-info" role="alert">{{ message }}</div>
+      {% endif %}
+
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+        <div class="alert alert-warning" role="alert">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+
+    {% block container %}{% endblock %}
+
+    <br />
+
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="{% static 'jquery/jquery.ui.js' %}"></script>
+    <script src="{% static 'underscore/underscore.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        kury = {}
+
+        kury.Menu = function($element) {
+          this.$element = $element
+          this.popovers = {}
+
+          this.init()
+          this.bind()
+        },
+
+        kury.Menu.prototype = {
+          init: function() {
+            var $popovers = this.$element.find('[data-kury-menu-parent]')
+
+            this.popovers = _.map($popovers, function(popover) {
+              var $popover = $(popover)
+              $popover.appendTo('body')
+
+              return {
+                $parent: $( $popover.data('kuryMenuParent') ),
+                $popover: $popover,
+                $items: $popover.children('li')
+              }
+            })
+          },
+
+          bind: function() {
+            _.bindAll(this, 'on_mouseover', 'on_mouseout')
+
+            _.each(this.popovers, function(popover) {
+              popover.$parent.on('mouseover', {popover: popover}, this.on_mouseover)
+              //popover.$parent.on('mouseout', {popover: popover}, this.on_mouseout)
+            })
+          },
+
+          on_mouseover: function(event) {
+            this.$element.show().position(this.position)
+          },
+
+          on_mouseout: function(event) {
+            if( $.contains(this.$element[0], event.relatedTarget) ) {
+              this.$element.on('mouseout', this.on_mouseout)
+              return
+            }
+
+            this.$element.off('mouseout', this.on_mouseout)
+            this.$element.hide()
+          },
+
+          show_popover: function(popover) {
+            var position = popover.$popover.data('kuryMenuPosition')
+            position.of = popover.$parent
+            position.collision = 'flip fit'
+
+            popover.$popover.show().position(position)
+          },
+
+          hide_popover: function(popover) {
+            popover.$popover.hide()
+          },
+
+          popover_siblings: function() {
+
+          }
+        },
+
+        kury.find_menus = function() {
+          $('[data-kury-menu]').each(function(index, element) {
+            new kury.Menu( $(element) )
+          })
+        }
+
+        $('select[data-kury-refresh-form]').each(function(index, input) {
+          var $input = $(input)
+          var $form = $input.closest('form')
+
+          var on_change = function(event) {
+            $.post( $form.attr('action'), $form.serialize() )
+              .done(function(data) {
+                $form.html(data)
+                $form.find('select[data-kury-refresh-form]').on('change', on_change)
+              })
+          }
+
+          $input.on('change', on_change)
+        })
+
+        kury.find_popovers()
+      })
+    </script>
+  </body>
+</html>

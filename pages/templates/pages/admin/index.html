@@ -1,0 +1,44 @@
+{% extends 'kury/admin_layout.html' %}
+
+{% block content %}
+
+<br />
+<h1>Pages</h1>
+<hr />
+
+<div class="col-xs-12">
+  {% if pages|length > 0 %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for page in pages %}
+          <tr>
+            <td>{{ page.title }}</td>
+            <td>{{ page.content|truncatewords:30 }}</td>
+            <td>
+              <a href="{% url 'pages:admin_edit' pk=page.pk %}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-center">No pages yet. Create one below!</p>
+  {% endif %}
+  <br />
+</div>
+
+<h2>Create new page</h2>
+<hr />
+
+<form method="POST">
+  {% include 'pages/admin/form.html' with form=form %}
+</form>
+
+{% endblock %}

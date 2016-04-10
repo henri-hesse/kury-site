@@ -1,0 +1,45 @@
+{% extends 'kury/layout.html' %}
+
+{% block container %}
+  <style>
+    form.link-submit {
+      display: inline;
+    }
+
+    form.link-submit .btn-link {
+      padding: 0;
+    }
+  </style>
+
+  <div class="container">
+    <br />
+    <div class="row">
+      <div class="col-xs-2">
+        <h4>Kury Admin</h4>
+      </div>
+      <div class="col-xs-10">
+        <ul class="nav nav-tabs pull-right">
+          {% with namespace=request.resolver_match.namespaces.0 %}
+            <li role="presentation" {% if namespace == 'navigation' %}class="active"{% endif %}>
+              <a href="{% url 'navigation:admin_index' %}">Navigation</a>
+            </li>
+            <li role="presentation" {% if namespace == 'pages' %}class="active"{% endif %}>
+              <a href="{% url 'pages:admin_index' %}">Pages</a>
+            </li>
+            <li role="presentation" {% if namespace == 'courses' %}class="active"{% endif %}>
+              <a href="{% url 'courses:admin_index' %}">Courses</a>
+            </li>
+            <li role="presentation" {% if namespace == 'carousel' %}class="active"{% endif %}>
+              <a href="{% url 'carousel:admin_index' %}">Carousel</a>
+            </li>
+          {% endwith %}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

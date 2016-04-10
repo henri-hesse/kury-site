@@ -1,0 +1,13 @@
+- pieniempi description. jos tämä tyhjä, kopioi koko tekstistä vaikka 50 sanaa
+- kellon aika vapaaehtoiseksi, ota pois sivulta mikäli keskiyö
+- publjish toiminto kurssien eventeille
+# - kurssit piilon jos eventtejä ei näytettävänä
+# - piilota menneen kurssin eventit
+- kurssien päivämäärään viikonpäivä lyhyesti ja kuinka monen päivän päästä
+# - kurssien eventit aikajärjestykseen
+- testaa kännykät ja tabletit, ios ja android
+- Lisää markdown ohjeet missä tarvitaan
+# - page kuntoon
+- landing page
+- junnut
+- admin login

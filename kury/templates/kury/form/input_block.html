@@ -1,0 +1,16 @@
+<div class="form-group {% if not skip_errors and field.errors %}has-error{% endif %}">
+  {{ field.label_tag }}
+
+  {% if not skip_errors %}
+    {% for error in field.errors %}
+      <span class="label label-danger">{{ error }}</span>
+    {% endfor %}
+  {% endif %}
+
+  {{ field }}
+
+  {% if field.help_text %}
+    <p class="help-block">{{ field.help_text }}</p>
+  {% endif %}
+
+</div>

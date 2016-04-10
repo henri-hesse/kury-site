@@ -1,0 +1,43 @@
+{% extends 'kury/site_layout.html' %}
+
+{% block content %}
+
+<br />
+<h1>Kurssit</h1>
+<hr />
+<br />
+
+<div class="row">
+	{% for course in courses %}
+		<div class="col-xs-12 col-md-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h1 class="panel-title">
+			    	<a href="{% url 'courses:show' pk=course.pk %}">{{ course.title }}</a>
+			    </h1>
+			  </div>
+			  <div class="panel-body">
+			  	<img src="{{ course.image.url }}" style="width: 100%;" />
+			  	<br /><br />
+			  	{{ course.description_html|safe|truncatewords_html:10 }}
+			  	<br /><br />
+			  	<a href="{% url 'courses:show' pk=course.pk %}">Lue lisää</a>
+			  </div>
+			  <ul class="list-group">
+			  	{% for event in course.visible_events %}
+			  		<a class="list-group-item" href="{{ event.store_link }}">
+			  			{{ event.datetime|date:'SHORT_DATETIME_FORMAT' }}
+			  			<span class="btn btn-primary btn-xs pull-right">Ilmoittaudu!</span>
+			  		</a>
+			  	{% endfor %}
+			  </ul>
+			</div>
+		</div>
+
+		{% if forloop.counter|divisibleby:3 %}
+			<div class="clearfix visible-md-block visible-lg-block"></div>
+		{% endif %}
+	{% endfor %}
+</div>	
+
+{% endblock %}

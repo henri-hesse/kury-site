@@ -1,0 +1,21 @@
+{% extends 'kury/admin_layout.html' %}
+
+{% block content %}
+
+<br />
+<h1>Edit item <em>{{ item.title }}</em></h1>
+<hr />
+
+<div class="row">
+  <div class="col-xs-12">
+    <form class="pull-right" method="POST" action="{% url 'navigation:admin_delete' pk=item.pk %}">
+      {% csrf_token %}
+      <input class="btn btn-xs btn-danger" type="submit" value="Delete" />
+    </form>
+  </div>
+</div>
+
+<form method="POST">
+  {% include 'navigation/admin/item/form.html' with form=form %}
+</form>
+{% endblock %}

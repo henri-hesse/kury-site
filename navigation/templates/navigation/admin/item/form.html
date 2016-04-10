@@ -1,0 +1,34 @@
+{% csrf_token %}
+
+<div class="col-xs-12">
+  {% include 'kury/form/input_block.html' with field=form.title skip_errors=skip_errors %}
+</div>
+
+<div class="col-xs-6">
+  {% include 'kury/form/input_block.html' with field=form.parent skip_errors=skip_errors %}
+</div>
+<div class="col-xs-6">
+  {% include 'kury/form/input_block.html' with field=form.placement skip_errors=skip_errors %}
+</div>
+
+<div class="col-xs-6">
+  {% include 'kury/form/input_block.html' with field=form.link_type skip_errors=skip_errors %}
+</div>
+<div class="col-xs-6">
+  {% if form.link_type.value == 'url' %}
+    {% include 'kury/form/input_block.html' with field=form.url skip_errors=skip_errors %}
+  {% endif %}
+
+  {% if form.link_type.value == 'page' %}
+    {% include 'kury/form/input_block.html' with field=form.page skip_errors=skip_errors %}
+  {% endif %}
+
+  {% if form.link_type.value == 'tailored_page' %}
+    {% include 'kury/form/input_block.html' with field=form.tailored_page skip_errors=skip_errors %}
+  {% endif %}
+</div>
+
+<div class="col-xs-12">
+  <br />
+  <input class="btn btn-primary" type="submit" value="Save" />
+</div>

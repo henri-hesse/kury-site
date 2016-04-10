@@ -1,0 +1,11 @@
+{% csrf_token %}
+
+<div class="col-xs-12">
+  {% include 'kury/form/input_block.html' with field=form.title %}
+  {% include 'kury/form/input_block.html' with field=form.content %}
+</div>
+
+<div class="col-xs-12">
+  <br />
+  <input class="btn btn-primary" type="submit" value="Save" />
+</div>
