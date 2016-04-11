@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from django.db import models
 import markdown
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 class Image(models.Model):
   order_number = models.PositiveIntegerField(
@@ -12,8 +14,11 @@ class Image(models.Model):
   	verbose_name = 'Caption text for the image',
   	help_text = 'Text to show at the bottom of the image. You may use MarkDown here.'
   )
-  image = models.ImageField(
-  	upload_to = 'carousel/',
+  image = ProcessedImageField(
+  	upload_to = 'carousel',
+    processors = [ResizeToFill(640, 480)],
+    format = 'JPEG',
+    options = {'quality': 90},
   	verbose_name = 'Image file',
   	help_text = 'Pick up a image file from your computer. Image should be big enough so that it wont get scaled up by the system.'
   )
