@@ -1,1 +1,7 @@
 *.pyc
+
+media/carousel/*
+!media/carousel/.keep
+
+media/courses/*
+!media/courses/.keep
