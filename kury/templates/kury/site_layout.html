@@ -51,6 +51,7 @@
       padding-left: 0;
       background-color: white;
       cursor: default;
+      z-index: 1000;
       -webkit-box-shadow: 0px 6px 15px 0px rgba(0,0,0,0.75);
       -moz-box-shadow: 0px 6px 15px 0px rgba(0,0,0,0.75);
       box-shadow: 0px 6px 15px 0px rgba(0,0,0,0.75);
@@ -60,11 +61,10 @@
       list-style: none;
       font-weight: bold;
       color: #999;
-      padding: 10px;
     }
 
     .menu-popover li:hover {
-      background-color: #44029c;
+      background-color: #999;
       color: white;
     }
 
@@ -74,6 +74,7 @@
       font-weight: bold;
       color: #999;
       width: 100%;
+      padding: 10px;
     }
 
     .menu-popover li a:hover {
@@ -97,7 +98,7 @@
           <h4>Kiipeilyurheilijat</h4>
         </div>
         <div class="col-xs-10">
-          <ul data-kury-menu id="navigation" class="pull-right">
+          <ul id="navigation" class="pull-right">
             {% for item in top_level_items %}
               <li id="menu-item-{{ item.pk }}">
                 {% if item.link %}
@@ -106,7 +107,7 @@
                   {{ item.title }}
                 {% endif %}
               </li>
-              {% include 'kury/item_menu_popover.html' with items=item.children.all %}
+              {% include 'kury/item_menu_popover.html' with parent=item %}
             {% endfor %}
           </ul>
         </div>

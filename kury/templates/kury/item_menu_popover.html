@@ -1,24 +1,18 @@
-{% if items|length > 0 %}
+{% if parent.children.all|length > 0 %}
   <ul
     class="menu-popover"
     style="display: none;"
-    data-kury-menu-parent="#menu-item-{{ items.0.parent.pk }}"
-    {% if items.0.parent.deepness == 0 %}
-      data-kury-menu-position='{"my":"left top","at":"left bottom"}'
-    {% else %}
-      data-kury-menu-position='{"my":"left top","at":"right top"}'
-    {% endif %}
+    data-kury-popover-parent="#menu-item-{{ parent.pk }}"
+    data-kury-popover-position='{"my":"left top","at":"left bottom"}'
     >
-      {% for item in items %}
-        <li id="menu-item-{{ item.pk }}">
+      {% for item in parent.children.all %}
+        <li>
           {% if item.link %}
             <a href="{{ item.link }}">{{ item.title }}</a>
           {% else %}
             {{ item.title }}
           {% endif %}
         </li>
-
-        {% include 'kury/item_menu_popover.html' with items=item.children.all %}
       {% endfor %}
   </ul>
 {% endif %}

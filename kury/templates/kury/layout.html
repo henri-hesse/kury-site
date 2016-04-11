@@ -52,37 +52,29 @@
       $(document).ready(function() {
         kury = {}
 
-        kury.Menu = function($element) {
+        kury.Popover = function($element) {
           this.$element = $element
-          this.popovers = {}
 
           this.init()
           this.bind()
         },
 
-        kury.Menu.prototype = {
+        kury.Popover.prototype = {
           init: function() {
-            var $popovers = this.$element.find('[data-kury-menu-parent]')
+            this.$parent = $(this.$element.data('kuryPopoverParent'))
 
-            this.popovers = _.map($popovers, function(popover) {
-              var $popover = $(popover)
-              $popover.appendTo('body')
+            this.position = this.$element.data('kuryPopoverPosition')
+            this.position.of = this.$parent
+            this.position.collision = 'flip fit'
 
-              return {
-                $parent: $( $popover.data('kuryMenuParent') ),
-                $popover: $popover,
-                $items: $popover.children('li')
-              }
-            })
+            this.$element.appendTo('body')
           },
 
           bind: function() {
             _.bindAll(this, 'on_mouseover', 'on_mouseout')
 
-            _.each(this.popovers, function(popover) {
-              popover.$parent.on('mouseover', {popover: popover}, this.on_mouseover)
-              //popover.$parent.on('mouseout', {popover: popover}, this.on_mouseout)
-            })
+            this.$parent.on('mouseover', this.on_mouseover)
+            this.$parent.on('mouseout', this.on_mouseout)
           },
 
           on_mouseover: function(event) {
@@ -91,36 +83,17 @@
 
           on_mouseout: function(event) {
             if( $.contains(this.$element[0], event.relatedTarget) ) {
-              this.$element.on('mouseout', this.on_mouseout)
+              this.$element.one('mouseout', this.on_mouseout)
               return
             }
 
-            this.$element.off('mouseout', this.on_mouseout)
             this.$element.hide()
-          },
-
-          show_popover: function(popover) {
-            var position = popover.$popover.data('kuryMenuPosition')
-            position.of = popover.$parent
-            position.collision = 'flip fit'
-
-            popover.$popover.show().position(position)
-          },
-
-          hide_popover: function(popover) {
-            popover.$popover.hide()
-          },
-
-          popover_siblings: function() {
-
           }
         },
 
-        kury.find_menus = function() {
-          $('[data-kury-menu]').each(function(index, element) {
-            new kury.Menu( $(element) )
-          })
-        }
+        $('[data-kury-popover-parent]').each(function(index, element) {
+          new kury.Popover( $(element) )
+        })
 
         $('select[data-kury-refresh-form]').each(function(index, input) {
           var $input = $(input)
@@ -136,8 +109,6 @@
 
           $input.on('change', on_change)
         })
-
-        kury.find_popovers()
       })
     </script>
   </body>
