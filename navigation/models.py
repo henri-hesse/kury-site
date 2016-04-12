@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from pages.models import Page
+from django.core.urlresolvers import reverse
 
 class ItemQuerySet(models.QuerySet):
   def top_level(self):
@@ -29,7 +30,8 @@ class Item(models.Model):
   )
 
   TAILORED_PAGES = (
-    ('http://example.com/', 'Example page'),
+    ('base:landing_page', 'Landing page'),
+    ('courses:index', 'Courses'),
   )
 
   parent = models.ForeignKey('self',
@@ -122,7 +124,7 @@ class Item(models.Model):
       return self.page.link()
 
     if self.link_type == 'tailored_page':
-      return self.tailored_page
+      return reverse(self.tailored_page)
 
     if self.link_type == 'url':
       return self.url
