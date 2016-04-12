@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 import markdown
 from django.utils import timezone
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 class CourseQuerySet(models.QuerySet):
   def visible(self):
@@ -17,8 +19,11 @@ class Course(models.Model):
   	verbose_name = 'Longer description',
   	help_text = 'Complete description of the course. May contain special markup. Do not add any specific dates here.'
   )
-  image = models.ImageField(
+  image = ProcessedImageField(
   	upload_to = 'courses/',
+    processors = [ResizeToFill(640, 480)],
+    format = 'JPEG',
+    options = {'quality': 90},
   	verbose_name = 'General image of the course',
   	help_text = 'Pick up a image file from your computer. Image should be big enough so that it wont get scaled up by the system.'
   )
