@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 class UserForm(forms.ModelForm):
   password_1 = forms.CharField(
@@ -51,3 +52,27 @@ class UserForm(forms.ModelForm):
       self.instance.set_password(password_1)
 
     return super(UserForm, self).save(*args, **kwargs)
+
+class LoginForm(forms.Form):
+  username = forms.CharField(
+    widget = forms.TextInput(
+      attrs = { 'class': 'form-control' }
+    )
+  )
+
+  password = forms.CharField(
+    widget = forms.PasswordInput(
+      attrs = { 'class': 'form-control' }
+    )
+  )
+
+  def login(self, request):
+    # Only to get access to cleaned_data
+    self.is_valid()
+    user = authenticate(username = self.cleaned_data.get('username'), password = self.cleaned_data.get('password'))
+
+    if user is not None:
+      login(request, user)
+      return True
+
+    return False

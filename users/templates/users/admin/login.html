@@ -1,0 +1,26 @@
+{% extends 'kury/layout.html' %}
+
+{% block container %}
+  <div class="container">
+    <br />
+    <br />
+    <h1>Kury Admin Login</h1>
+    <hr />
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-xs-12">
+          {% include 'kury/form/input_block.html' with field=form.username %}
+          {% include 'kury/form/input_block.html' with field=form.password %}
+        </div>
+
+        <div class="col-xs-12">
+          <br />
+          <input class="btn btn-primary" type="submit" value="Login" />
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

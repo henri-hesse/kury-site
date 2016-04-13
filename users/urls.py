@@ -16,5 +16,15 @@ urlpatterns = [
     r'^admin/(?P<pk>[0-9]+)/delete$',
     views.admin_delete,
     name='admin_delete'
+  ),
+  url(
+    r'^login$',
+    views.login,
+    name='login'
+  ),
+  url(
+    r'^logout$',
+    views.logout,
+    name='logout'
   )
 ]

@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.models import User
+from django.contrib.auth import logout as logout_user
 from .forms import *
 
 def admin_index(request):
@@ -56,3 +57,27 @@ def admin_delete(request, pk):
     return redirect(reverse('users:admin_index'))
 
   raise Http404('Not a POST request')
+
+def login(request):
+  if request.method == 'POST':
+    form = LoginForm(request.POST)
+
+    if form.login(request):
+      messages.success(request, 'Welcome!')
+
+      return redirect(reverse('navigation:admin_index'))
+
+    else:
+      messages.error(request, 'Username or password incorrect!')
+  else:
+    form = LoginForm()
+
+  return render(request, 'users/admin/login.html', {
+    'form': form
+  })
+
+def logout(request):
+  logout_user(request)
+  messages.success(request, 'Logged out!')
+  
+  return redirect('base:landing_page')
