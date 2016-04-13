@@ -1,6 +1,7 @@
 - pieniempi description. jos tämä tyhjä, kopioi koko tekstistä vaikka 50 sanaa
 - kellon aika vapaaehtoiseksi, ota pois sivulta mikäli keskiyö
 - publjish toiminto kurssien eventeille
+- kun uutta kurssia luo, eventtien lisääminen samalla aiheuttaa error 500:n
 # - kurssit piilon jos eventtejä ei näytettävänä
 # - piilota menneen kurssin eventit
 - kurssien päivämäärään viikonpäivä lyhyesti ja kuinka monen päivän päästä
@@ -8,6 +9,9 @@
 - testaa kännykät ja tabletit, ios ja android
 - Lisää markdown ohjeet missä tarvitaan
 # - page kuntoon
-- landing page
+# - landing page
 - junnut
 - admin login
+- hallitukselle tailored page. Ota mallia kurssit sivusta, poista pvm ja poista piilotus jos ei pvm
+- lisää kommentteja, englanniksi
+- sivut palvelimelle

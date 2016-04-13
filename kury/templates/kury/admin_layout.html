@@ -32,6 +32,9 @@
             <li role="presentation" {% if namespace == 'carousel' %}class="active"{% endif %}>
               <a href="{% url 'carousel:admin_index' %}">Carousel</a>
             </li>
+            <li role="presentation" {% if namespace == 'users' %}class="active"{% endif %}>
+              <a href="{% url 'users:admin_index' %}">Users</a>
+            </li>
           {% endwith %}
         </ul>
       </div>

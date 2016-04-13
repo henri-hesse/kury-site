@@ -7,5 +7,6 @@ urlpatterns = [
   url(r'^pages/', include('pages.urls', namespace='pages')),
   url(r'^courses/', include('courses.urls', namespace='courses')),
   url(r'^carousel/', include('carousel.urls', namespace='carousel')),
+  url(r'^users/', include('users.urls', namespace='users')),
   url(r'^', include('base.urls', namespace='base')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

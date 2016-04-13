@@ -1,0 +1,42 @@
+{% extends 'kury/admin_layout.html' %}
+
+{% block content %}
+
+<br />
+<h1>Users</h1>
+<hr />
+
+<div class="col-xs-12">
+  {% if users|length > 0 %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>
+              <a href="{% url 'users:admin_edit' pk=user.pk %}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-center">No users yet. Create one below!</p>
+  {% endif %}
+  <br />
+</div>
+
+<h2>Create new user</h2>
+<hr />
+
+<form method="POST">
+  {% include 'users/admin/form.html' with form=form %}
+</form>
+
+{% endblock %}
