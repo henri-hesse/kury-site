@@ -2,9 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+@login_required
 def admin_index(request):
   if request.method == 'POST':
     form = ItemForm(request.POST)
@@ -30,6 +32,7 @@ def admin_index(request):
     'form': form,
   })
 
+@login_required
 def admin_edit(request, pk):
   item = get_object_or_404(Item, pk=pk)
 
@@ -57,6 +60,7 @@ def admin_edit(request, pk):
     'item': item
   })
 
+@login_required
 def admin_delete(request, pk):
   item = get_object_or_404(Item, pk=pk)
 

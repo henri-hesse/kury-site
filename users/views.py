@@ -2,10 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout as logout_user
 from .forms import *
 
+@login_required
 def admin_index(request):
   if request.method == 'POST':
     form = UserForm(request.POST)
@@ -26,6 +28,7 @@ def admin_index(request):
     'users': User.objects.all(),
   })
 
+@login_required
 def admin_edit(request, pk):
   user = get_object_or_404(User, pk=pk)
 
@@ -47,6 +50,7 @@ def admin_edit(request, pk):
     'user': user
   })
 
+@login_required
 def admin_delete(request, pk):
   user = get_object_or_404(User, pk=pk)
 
@@ -79,5 +83,5 @@ def login(request):
 def logout(request):
   logout_user(request)
   messages.success(request, 'Logged out!')
-  
+
   return redirect('base:landing_page')

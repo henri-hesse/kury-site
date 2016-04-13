@@ -117,3 +117,5 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = '/home/henri/Archive 2/kury/media/'
 MEDIA_URL = '/media/'
+
+LOGIN_URL = 'users:login'
