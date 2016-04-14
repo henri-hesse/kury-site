@@ -31,6 +31,7 @@ class Item(models.Model):
 
   TAILORED_PAGES = (
     ('base:landing_page', 'Landing page'),
+    ('base:staff', 'Staff members page'),
     ('courses:index', 'Courses'),
   )
 

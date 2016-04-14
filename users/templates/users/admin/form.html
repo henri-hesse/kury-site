@@ -1,16 +1,39 @@
 {% csrf_token %}
 
-<div class="col-xs-12">
-  {% include 'kury/form/input_block.html' with field=user_form.username %}
-  {% include 'kury/form/input_block.html' with field=user_form.password_1 %}
-  {% include 'kury/form/input_block.html' with field=user_form.password_2 %}
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    {% include 'kury/form/input_block.html' with field=user_form.username %}
+  </div>
+  <div class="col-xs-12 col-md-4">
+    {% include 'kury/form/input_block.html' with field=user_form.password_1 %}
+  </div>
+  <div class="col-xs-12 col-md-4">
+    {% include 'kury/form/input_block.html' with field=user_form.password_2 %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    {% include 'kury/form/input_block.html' with field=user_form.first_name %}
+  </div>
+  <div class="col-xs-12 col-md-4"> 
+    {% include 'kury/form/input_block.html' with field=user_form.last_name %}
+  </div>
+  <div class="col-xs-12 col-md-4">
+    {% include 'kury/form/input_block.html' with field=user_form.email %}
+  </div>
 </div>
 
-<div class="col-xs-12">
-  {% include 'kury/form/input_block.html' with field=detail_form.image %}
-</div>
+<div class="row">
+  <div class="col-xs-12">
+    <br /><br />
+    {% include 'kury/form/input_block.html' with field=detail_form.image %}
+  </div>
+  <div class="col-xs-12">
+    {% include 'kury/form/input_block.html' with field=detail_form.story %}
+  </div>
 
-<div class="col-xs-12">
-  <br />
-  <input class="btn btn-primary" type="submit" value="Save" />
+  <div class="col-xs-12">
+    <br />
+    <input class="btn btn-primary" type="submit" value="Save" />
+  </div>
 </div>

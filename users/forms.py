@@ -23,11 +23,20 @@ class UserForm(forms.ModelForm):
 
   class Meta:
     model = User
-    fields = ('username',)
+    fields = ('username', 'first_name', 'last_name', 'email')
     widgets = {
       'username': forms.TextInput(
         attrs = { 'class': 'form-control' }
-      )
+      ),
+      'first_name': forms.TextInput(
+        attrs = { 'class': 'form-control' }
+      ),
+      'last_name': forms.TextInput(
+        attrs = { 'class': 'form-control' }
+      ),
+      'email': forms.EmailInput(
+        attrs = { 'class': 'form-control' }
+      ),
     }
 
   def clean(self):
@@ -57,7 +66,12 @@ class UserForm(forms.ModelForm):
 class DetailForm(forms.ModelForm):
   class Meta:
     model = Detail
-    fields = ('image',)
+    fields = ('image', 'story')
+    widgets = {
+      'story': forms.Textarea(
+        attrs = { 'class': 'form-control' }
+      )
+    }
 
 class LoginForm(forms.Form):
   username = forms.CharField(
