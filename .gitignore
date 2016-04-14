@@ -5,3 +5,6 @@ media/carousel/*
 
 media/courses/*
 !media/courses/.keep
+
+media/users/*
+!media/users/.keep

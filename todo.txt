@@ -11,7 +11,7 @@
 # - page kuntoon
 # - landing page
 - junnut
-- admin login
+# - admin login
 - hallitukselle tailored page. Ota mallia kurssit sivusta, poista pvm ja poista piilotus jos ei pvm
 - lisää kommentteja, englanniksi
 - sivut palvelimelle

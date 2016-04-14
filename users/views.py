@@ -6,14 +6,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout as logout_user
 from .forms import *
+from .models import *
 
 @login_required
 def admin_index(request):
   if request.method == 'POST':
-    form = UserForm(request.POST)
+    user_form = UserForm(request.POST)
+    detail_form = DetailForm(request.POST, request.FILES)
 
-    if form.is_valid():
-      form.save()
+    if user_form.is_valid() and detail_form.is_valid():
+      user_form.save()
+
+      detail_form.instance.user = user_form.instance
+      detail_form.save()
 
       messages.success(request, 'New user created!')
 
@@ -21,10 +26,12 @@ def admin_index(request):
     else:
       messages.error(request, 'New user not saved!')
   else:
-    form = UserForm()
+    user_form = UserForm()
+    detail_form = DetailForm()
 
   return render(request, 'users/admin/index.html', {
-    'form': form,
+    'user_form': user_form,
+    'detail_form': detail_form,
     'users': User.objects.all(),
   })
 
@@ -33,20 +40,24 @@ def admin_edit(request, pk):
   user = get_object_or_404(User, pk=pk)
 
   if request.method == 'POST':
-    form = UserForm(request.POST, instance=user)
+    user_form = UserForm(request.POST, instance=user)
+    detail_form = DetailForm(request.POST, request.FILES, instance=user.detail)
 
-    if form.is_valid():
-      form.save()
+    if user_form.is_valid() and detail_form.is_valid():
+      user_form.save()
+      detail_form.save()
       messages.success(request, 'User saved!')
 
       return redirect(reverse('users:admin_index'))
     else:
       messages.error(request, 'User not saved!')
   else:
-    form = UserForm(instance=user)
+    user_form = UserForm(instance=user)
+    detail_form = DetailForm(instance=user.detail)
 
   return render(request, 'users/admin/edit.html', {
-    'form': form,
+    'user_form': user_form,
+    'detail_form': detail_form,
     'user': user
   })
 

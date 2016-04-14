@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<form method="POST">
-  {% include 'users/admin/form.html' with form=form %}
+<form method="POST" enctype="multipart/form-data">
+  {% include 'users/admin/form.html' with user_form=user_form detail_form=detail_form %}
 </form>
 {% endblock %}

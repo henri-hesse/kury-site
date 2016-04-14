@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from .models import *
 
 class UserForm(forms.ModelForm):
   password_1 = forms.CharField(
@@ -52,6 +53,11 @@ class UserForm(forms.ModelForm):
       self.instance.set_password(password_1)
 
     return super(UserForm, self).save(*args, **kwargs)
+
+class DetailForm(forms.ModelForm):
+  class Meta:
+    model = Detail
+    fields = ('image',)
 
 class LoginForm(forms.Form):
   username = forms.CharField(

@@ -1,9 +1,13 @@
 {% csrf_token %}
 
 <div class="col-xs-12">
-  {% include 'kury/form/input_block.html' with field=form.username %}
-  {% include 'kury/form/input_block.html' with field=form.password_1 %}
-  {% include 'kury/form/input_block.html' with field=form.password_2 %}
+  {% include 'kury/form/input_block.html' with field=user_form.username %}
+  {% include 'kury/form/input_block.html' with field=user_form.password_1 %}
+  {% include 'kury/form/input_block.html' with field=user_form.password_2 %}
+</div>
+
+<div class="col-xs-12">
+  {% include 'kury/form/input_block.html' with field=detail_form.image %}
 </div>
 
 <div class="col-xs-12">
