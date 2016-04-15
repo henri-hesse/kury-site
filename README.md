@@ -19,6 +19,6 @@ Install these extra packages:
 * pip install pytz
 * pip install django-imagekit
 
-## Production
+## Production, NOT COMPLETE!
 
-Remember to install python-imaging package
+Remember to install python-imaging and python-mysql packages
