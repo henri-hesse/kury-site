@@ -62,7 +62,7 @@ ROOT_URLCONF = 'kury.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['kury/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'kury', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,7 +115,7 @@ STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = '/home/henri/Archive 2/kury/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = 'users:login'
