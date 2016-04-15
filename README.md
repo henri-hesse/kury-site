@@ -22,4 +22,5 @@ Install these extra packages:
 ## Production, NOT COMPLETE!
 
 Install python-imaging and python-mysql packages
+
 Make media directory writeable by django
