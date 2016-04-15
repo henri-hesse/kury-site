@@ -18,3 +18,7 @@ Install these extra packages:
 * pip install markdown
 * pip install pytz
 * pip install django-imagekit
+
+## Production
+
+Remember to install python-imaging package
